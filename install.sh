@@ -4,8 +4,10 @@ virtualenv venv || echo 'Please install virtualenv!'
 
 . venv/bin/activate
 
+
 wget -O ./get-pip.py https://bootstrap.pypa.io/get-pip.py
 python get-pip.py || echo 'Can not install pip, aborting'
+
 pip install -r requirements.txt
 
 deactivate
