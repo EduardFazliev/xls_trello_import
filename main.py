@@ -100,14 +100,33 @@ if __name__ == '__main__':
         print pt
         raw_input('Press ENTER to continue...')
 
-    trello_imp = TrelloImport('hZHMkyYU', 'Issues')
+    print """Now you need to enter board ID. You can find it in URL.
+    Example: https://trello.com/b/jOnfDJKu/boardname.
+    'jOnfDJKu' here is board ID.
+    """
+    board_id = raw_input("Enter Trello's board ID: ")
+
+    list_name = raw_input("Please, enter name of list you want to use for new cards: ")
+
+    trello_imp = TrelloImport(board_id, list_name)
+
     responses = trello_imp.create_cards(xls.trello_title, xls.trello_description)
 
-    if yes_no_choose('Do you want to print results in table format?'):
+    if yes_no_choose('Do you want to write results in file?'):
+        log_file = raw_input("Path to file to store results: ")
         resp_table = PrettyTable(['Card', 'Response'])
         resp_table.align = 'l'
         resp_table.header = True
         resp_table.hrules = ALL
         for key in responses.keys():
-            resp_table.add_row(key, responses[key])
-        print resp_table
+            resp_table.add_row([key, responses[key]])
+
+        try:
+            with open(log_file, 'w') as f:
+                f.write(str(resp_table))
+        except IOError as e:
+            print "Can't write results to file {0}. " \
+                  "Error: {1}".format(log_file, resp_table)
+        except KeyboardInterrupt:
+            exit(1)
+

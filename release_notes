@@ -1,0 +1,3 @@
+What's new in version 0.1.1
+  - Fix hardcoded values for TrelloImport class.
+  - Add ability to save import results in file.
