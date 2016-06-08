@@ -6,6 +6,7 @@ __pycache__/
 *$py.class
 ./venv
 get-pip.py
+ex.xls
 config.py
 # C extensions
 *.so
